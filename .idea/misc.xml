@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.112" />
+        <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable/bottom_nav_bg.xml" value="0.1" />
+        <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable/ic_baseline_local_hospital_24.xml" value="0.112" />
+        <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable/ic_baseline_restaurant_24.xml" value="0.112" />
+        <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable/ic_baseline_school_24.xml" value="0.112" />
+        <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable/ic_baseline_shopping_cart_24.xml" value="0.112" />
+        <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable/ic_launcher_background.xml" value="0.112" />
         <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/drawable/nav_selector.xml" value="0.109" />
         <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/layout/activity_maps.xml" value="0.209375" />
         <entry key="..\:/Users/brije/AndroidStudioProjects/KotlinNearby/app/src/main/res/menu/bottom_menu.xml" value="0.209375" />
