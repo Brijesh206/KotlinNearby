@@ -4,6 +4,8 @@
     package="com.example.kotlinnearby">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,10 +30,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAR4XGx_nOIu4KjZqY8EF5z8SdacZ_IVUA" />
-        <meta-data
-            android:name="browser_key"
-            android:value="AIzaSyDn-fzE2uEzCecNTYRiZcCA438T0B5ldXE" />
+            android:value="${MAPS_API_KEY}" />
 
         <activity
             android:name=".MapsActivity"
