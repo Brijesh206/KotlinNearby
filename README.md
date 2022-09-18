@@ -2,6 +2,8 @@
 - 🌱 This app will show you the places nearby you like neaby Business, Store, Gas Pump, Restaurant.
 <hr>
 
+### Click [here](https://github.com/Brijesh206/KotlinNearby/releases/tag/pre-release) to download the App.
+
 - Some screenshots of the app
 
 <!--![Screenshot_20220911-172724_KotlinNearby](https://user-images.githubusercontent.com/92438772/189526411-266793a0-2a3b-43a3-a722-b28db39d1455.jpg)-->
