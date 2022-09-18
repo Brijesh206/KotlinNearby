@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.kotlinnearby.Model.MyPlaces
+import com.example.kotlinnearby.Remote.IGoogleAPIService
 import com.example.kotlinnearby.databinding.ActivityMapsBinding
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -21,6 +23,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -31,17 +36,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var latitude:Double=0.toDouble()
     private var longitude:Double=0.toDouble()
 
+
     private lateinit var mLastLocation: Location
     private var mMarker: Marker?=null
 
-    // Location
+
+
+    //location
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
     lateinit var locationCallback: LocationCallback
 
     companion object{
-        private const val MY_PERMISSION_CODE: Int = 200
+        private const val MY_PERMISSION_CODE : Int = 2000
+
     }
+
+    lateinit var mServices: IGoogleAPIService
+    internal lateinit  var currentPlace: MyPlaces
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,12 +62,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val bottom_Navigation_view = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+            R.id.bottom_navigation_view)
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        mServices = Common.googleApiService
 
-        // Request runtime permission
+        //request runtime permission
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.M)
             if (checkLocationPermission()) {
                 buildLocationRequest()
@@ -78,6 +94,78 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
             }
 
+
+
+        bottom_Navigation_view.setOnNavigationItemSelectedListener { item ->
+            if (item.itemId == R.id.action_business) nearByPlace("business")
+            else if (item.itemId == R.id.action_store) nearByPlace("store")
+            else if (item.itemId == R.id.action_gas) nearByPlace("gas_station")
+            else if (item.itemId == R.id.action_restaurant) nearByPlace("restaurant")
+            true
+
+        }
+    }
+
+    private fun nearByPlace(typePlace: String) {
+
+        //clear all marker from map
+        mMap.clear()
+
+
+        //build url based on location
+        val url = getUrl(latitude,longitude,typePlace)
+        mServices.getNearbyPlaces(url)
+            .enqueue(object: Callback<MyPlaces> {
+                override fun onResponse(call: Call<MyPlaces>, response: Response<MyPlaces>) {
+
+                    currentPlace = response.body()!!
+                    if (response.isSuccessful)
+                    {
+                        for (i in 0 until response.body()!!.results!!.size)
+                        {
+                            val markerOptions=MarkerOptions()
+                            val googlePlaces=response.body()!!.results!![i]
+                            val lat = googlePlaces.geometry!!.location!!.lat
+                            val lng = googlePlaces.geometry!!.location!!.lng
+                            val placeName = googlePlaces.name
+                            val latLng = LatLng(lat,lng)
+                            markerOptions.position(latLng)
+                            markerOptions.title(placeName)
+
+                            if (typePlace.equals("business")) {
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.business)).title(placeName)
+                            } else if (typePlace.equals("store")) {
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.store)).title(placeName)
+                            } else if (typePlace.equals("gas_station")) {
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.gas_station)).title(placeName)
+                            } else if (typePlace.equals("restaurant")) {
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)).title(placeName)
+                            }
+                            else
+
+                                markerOptions.icon(
+                                    BitmapDescriptorFactory.defaultMarker(
+                                        BitmapDescriptorFactory.HUE_BLUE))
+
+
+                            //add marker to map
+                            markerOptions.snippet(latLng.toString())// to get the lat/lng of place
+
+                            mMap!!.addMarker(markerOptions)
+                            //move camera
+                            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+                            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<MyPlaces>, t: Throwable) {
+                    Toast.makeText(baseContext,""+t!!.message, Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
     }
 
     private fun getUrl(latitude: Double, longitude: Double, typePlace: String): String {
@@ -85,7 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         googlePlaceUrl.append("?keyword=cruise&location=$latitude,$longitude")
         googlePlaceUrl.append("&radius=10000") //10km
         googlePlaceUrl.append("&type=$typePlace")
-        googlePlaceUrl.append("&key=AIzaSyC5AiKZrCm5SvdHBFTMyn2bWyO9937NW4M")
+        googlePlaceUrl.append("&key=YOUR_API_KEY")
         Log.d("url_debug",googlePlaceUrl.toString())
         return googlePlaceUrl.toString()
 
@@ -108,7 +196,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val markerOptions = MarkerOptions()
                     .position(latlng)
                     .title("Your Location")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                 mMarker = mMap!!.addMarker(markerOptions)
 
                 //Move Camera
@@ -124,9 +212,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         locationRequest.interval = 5000
         locationRequest.fastestInterval = 3000
         locationRequest.smallestDisplacement = 10f
+
+
     }
 
-    private fun checkLocationPermission(): Boolean {
+    private fun checkLocationPermission():Boolean {
         if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
@@ -204,4 +294,3 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap!!.isMyLocationEnabled = true
     }
 }
-
