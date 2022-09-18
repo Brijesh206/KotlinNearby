@@ -1,5 +1,5 @@
 <h1 align="center">Nearby Me</h1>
-- 🌱 This app will show you the places nearby you like neaby restaurant, hospital, school, stores.
+- 🌱 This app will show you the places nearby you like neaby Business, Store, Gas Pump, Restaurant.
 <hr>
 
 - Some screenshots of the app
