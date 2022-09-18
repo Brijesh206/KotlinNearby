@@ -15,7 +15,7 @@
 
 <img src="https://user-images.githubusercontent.com/92438772/190900713-5b3a6503-397e-4714-ba9f-9936ca59f561.jpg" alt="android" width="300" height="600"/>
 
-<img src="https://user-images.githubusercontent.com/92438772/190900741-1f470659-52a1-47f2-8bd7-623fb4f24cd1.jpg" alt="android" width="300" height="600"/>!
+<img src="https://user-images.githubusercontent.com/92438772/190900741-1f470659-52a1-47f2-8bd7-623fb4f24cd1.jpg" alt="android" width="300" height="600"/>
 
 <img src="https://user-images.githubusercontent.com/92438772/190900781-d0274103-38a2-4fb0-a5ca-8f9bad2e8a78.jpg" alt="android" width="300" height="600"/>
 
