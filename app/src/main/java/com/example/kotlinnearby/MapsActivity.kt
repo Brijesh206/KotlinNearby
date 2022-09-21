@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.kotlinnearby.BuildConfig.MAPS_API_KEY
 import com.example.kotlinnearby.Model.MyPlaces
 import com.example.kotlinnearby.Remote.IGoogleAPIService
 import com.example.kotlinnearby.databinding.ActivityMapsBinding
@@ -173,7 +174,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         googlePlaceUrl.append("?keyword=cruise&location=$latitude,$longitude")
         googlePlaceUrl.append("&radius=10000") //10km
         googlePlaceUrl.append("&type=$typePlace")
-        googlePlaceUrl.append("&key=YOUR_API_KEY")
+        googlePlaceUrl.append("&key=")
+        googlePlaceUrl.append("${MAPS_API_KEY}")
         Log.d("url_debug",googlePlaceUrl.toString())
         return googlePlaceUrl.toString()
 
