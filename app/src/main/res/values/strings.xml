@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">KotlinNearby</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="app_name">Nearby Places</string>
+    <string name="title_activity_maps">NearbyPlaces</string>
 </resources>

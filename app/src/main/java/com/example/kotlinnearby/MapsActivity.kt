@@ -98,7 +98,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         bottom_Navigation_view.setOnNavigationItemSelectedListener { item ->
             if (item.itemId == R.id.action_business) nearByPlace("business")
-            else if (item.itemId == R.id.action_store) nearByPlace("store")
+            else if (item.itemId == R.id.action_hospital) nearByPlace("hospital")
             else if (item.itemId == R.id.action_gas) nearByPlace("gas_station")
             else if (item.itemId == R.id.action_restaurant) nearByPlace("restaurant")
             true
@@ -134,8 +134,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
                             if (typePlace.equals("business")) {
                                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.business)).title(placeName)
-                            } else if (typePlace.equals("store")) {
-                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.store)).title(placeName)
+                            } else if (typePlace.equals("hospital")) {
+                                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_hospital)).title(placeName)
                             } else if (typePlace.equals("gas_station")) {
                                 markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.gas_station)).title(placeName)
                             } else if (typePlace.equals("restaurant")) {
@@ -173,7 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         googlePlaceUrl.append("?keyword=cruise&location=$latitude,$longitude")
         googlePlaceUrl.append("&radius=10000") //10km
         googlePlaceUrl.append("&type=$typePlace")
-        googlePlaceUrl.append("&key=YOUR_API_KEY")
+        googlePlaceUrl.append("&key=AIzaSyD3ddx_c9dxy_KNbQ-yF778CO7OlcZj65g")
         Log.d("url_debug",googlePlaceUrl.toString())
         return googlePlaceUrl.toString()
 

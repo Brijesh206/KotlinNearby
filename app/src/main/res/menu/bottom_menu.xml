@@ -11,10 +11,10 @@
         android:iconTint="@color/blue_dark"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_store"
+        android:id="@+id/action_hospital"
         android:enabled="true"
-        android:title="Store"
-        android:icon="@drawable/ic_baseline_storefront"
+        android:title="Hospital"
+        android:icon="@drawable/ic_baseline_local_hospital_24"
         android:iconTint="@color/blue_dark"
         app:showAsAction="ifRoom"/>
     <item
