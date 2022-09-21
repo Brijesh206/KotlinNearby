@@ -173,7 +173,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         googlePlaceUrl.append("?keyword=cruise&location=$latitude,$longitude")
         googlePlaceUrl.append("&radius=10000") //10km
         googlePlaceUrl.append("&type=$typePlace")
-        googlePlaceUrl.append("&key=AIzaSyD3ddx_c9dxy_KNbQ-yF778CO7OlcZj65g")
+        googlePlaceUrl.append("&key=YOUR_API_KEY")
         Log.d("url_debug",googlePlaceUrl.toString())
         return googlePlaceUrl.toString()
 
