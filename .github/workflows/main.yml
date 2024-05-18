@@ -2,7 +2,7 @@ name: build
 on:
   push:
     branches:
-      - master # run the action on your projects default branch
+      - master # run the action on your project's default branch
 
 jobs:
   build:
@@ -20,18 +20,15 @@ jobs:
           distribution: 'adopt'
           java-version: '11' # Specify the required Java version
 
-      - name: 'Install Gradle'
-        run: sudo apt-get install gradle
-
-      - name: 'Verify Gradle Installation'
-        run: gradle --version
+      - name: 'Verify Gradle Wrapper'
+        run: ./gradlew --version
 
       - name: 'Run Gradle Dependencies Task'
-        run: gradle :dependencies --configuration compileClasspath
+        run: ./gradlew :dependencies --configuration compileClasspath
 
       - name: Root Gradle Dependency Submission
         uses: mikepenz/gradle-dependency-submission@v0.9.0
         with:
-          use-gradlew: false
+          use-gradlew: true  # Use the Gradle wrapper
           gradle-build-module: ':'
           gradle-build-configuration: 'compileClasspath'
