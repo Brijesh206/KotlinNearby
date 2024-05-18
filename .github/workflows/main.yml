@@ -20,6 +20,9 @@ jobs:
           distribution: 'adopt'
           java-version: '11' # Specify the required Java version
 
+      - name: 'Grant execute permission for gradlew'
+        run: chmod +x ./gradlew
+
       - name: 'Verify Gradle Wrapper'
         run: ./gradlew --version
 
